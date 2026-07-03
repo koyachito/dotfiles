@@ -1,0 +1,5 @@
+{
+  "42-header.nvim": { "branch": "main", "commit": "213eed395eebe317700800daf26f476a8c94989c" },
+  "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
+  "tender.vim": { "branch": "master", "commit": "b66dc330aff998dff9d44459d84bc1c5f4304fcc" }
+}

@@ -1,0 +1,29 @@
+* {
+    font-family: "JetBrainsMono Nerd Font",
+    "Noto Color Emoji",
+    sans-serif;
+	font-size: 13px;
+}
+
+window#waybar {
+    background: rgba(43,48,59,0.5);
+    color: white;
+}
+
+#workspaces button {
+    padding: 0 5px;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#tray,
+#idle_inhibitor,
+#mode {
+    padding: 0 10px;
+}

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# デバイス一覧取得
+devices="$(kdeconnect-cli --list-devices --id-name-only)"
+
+[ -z "$devices" ] && {
+    notify-send "KDE Connect" "No reachable devices."
+    exit 1
+}
+
+# Fuzzelで送信先選択
+selected="$(printf "%s\n" "$devices" | fuzzel --dmenu --prompt="Send to: ")"
+
+[ -z "$selected" ] && exit 0
+
+# 1列目(ID)を取得
+device_id="$(echo "$selected" | awk '{print $1}')"
+
+echo "DEVICE=$device_id"
+
+# ファイル送信
+for file in "$@"; do
+    echo "FILE=$file"
+
+    kdeconnect-cli \
+        --device "$device_id" \
+        --share "$file"
+
+    echo "EXIT=$?"
+done

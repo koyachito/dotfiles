@@ -1,0 +1,20 @@
+# Position
+anchor=top-right
+
+# Margin
+margin=20
+
+# Font
+font=Sans 11
+
+# Background
+background-color=#2e3440
+text-color=#eceff4
+border-color=#88c0d0
+
+# Border
+border-size=2
+border-radius=8
+
+# Timeout
+default-timeout=5000

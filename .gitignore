@@ -1,0 +1,12 @@
+# Vim / Neovim
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# backup
+*.bak
+
+./fonts

@@ -1,0 +1,9 @@
+[opener]
+pdf = [
+    { run = 'firefox "$@"', orphan = true, desc = "Firefox" },
+]
+
+[open]
+rules = [
+    { mime = "application/pdf", use = "pdf" },
+]

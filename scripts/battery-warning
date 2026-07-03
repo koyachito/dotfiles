@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# 最初に見つかったバッテリーを取得
+BATTERY=$(upower -e | grep battery | head -n1)
+
+# バッテリーがないPCなら終了
+[ -n "$BATTERY" ] || exit 0
+
+INFO=$(upower -i "$BATTERY")
+
+PERCENT=$(awk '/percentage/ {gsub("%", ""); print $2}' <<<"$INFO")
+STATE=$(awk '/state/ {print $2}' <<<"$INFO")
+
+# 放電中かつ20%以下なら通知
+if [[ "$STATE" == "discharging" && "$PERCENT" -le 20 ]]; then
+    notify-send \
+        --urgency=critical \
+        --replace-id=9999 \
+        "🔋 Battery Low" \
+        "Battery: ${PERCENT}%"
+fi
