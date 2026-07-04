@@ -11,3 +11,7 @@ sudo pacman -Sy Steam
 -S: ローカルのデータベース使う
 -Sy: サーバーから最新のデータベース取得->インストール
 -Syu: データベース更新&システム全体も更新
+
+sudo pacman -S zathura zathura-pdf-mupdf
+-> 30
+sudo pacman -S tesseract-data-jpn tesseract-data-spa

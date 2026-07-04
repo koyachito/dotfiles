@@ -6,4 +6,4 @@ modmap:
         alone: Esc
   - name: Katakana -> Super
     remap:
-      KEY_KATAKANAHIRAGANA: KEY_LEFTMETA
+      KEY_HENKAN: KEY_LEFTMETA
