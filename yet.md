@@ -5,8 +5,8 @@ vlc-plugins-all
 btop
 lazygit
 kdeconnect
-pandoc
-typst
+pandoc & typst
+	ln -s ~/dotfiles/config/pandoc ~/.local/share
 
 sudo nvim /etc/pachman.conf -> [multilib]の行のコメントアウトを消す
 sudo pacman -Sy Steam
