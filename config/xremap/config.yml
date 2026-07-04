@@ -4,3 +4,6 @@ modmap:
       CapsLock:
         held: Ctrl_L
         alone: Esc
+  - name: Katakana -> Super
+    remap:
+      KEY_KATAKANAHIRAGANA: KEY_LEFTMETA
