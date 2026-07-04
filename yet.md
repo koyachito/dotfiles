@@ -7,6 +7,11 @@ lazygit
 kdeconnect
 pandoc & typst
 	ln -s ~/dotfiles/config/pandoc ~/.local/share
+zoxide
+	たぶんfzfも自動で入る
+tldr
+eza
+dust(いらんかも)
 
 sudo nvim /etc/pachman.conf -> [multilib]の行のコメントアウトを消す
 sudo pacman -Sy Steam

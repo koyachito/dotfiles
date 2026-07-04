@@ -11,3 +11,5 @@ PS1='[\u@\h \W]\$ '
 
 export EDITOR=nvim
 export VISUAL=nvim
+
+eval "$(zoxide init bash)"
