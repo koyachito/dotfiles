@@ -24,3 +24,6 @@ sudo pacman -S zathura zathura-pdf-mupdf
 -> 30
 sudo pacman -S tesseract-data-jpn tesseract-data-spa
 -> yaziのconfigいじる。すでにpush済みなので入れたら動くよ
+./zathurarcにいろいろ追加
+
+brightnessctl
