@@ -8,6 +8,8 @@ set $right l
 set $term kitty
 set $menu fuzzel
 
+set $home $HOME
+
 include /etc/sway/config-vars.d/*
 
 # output
@@ -34,15 +36,13 @@ exec_always pkill -x swayidle; exec swayidle -w \
 exec_always sh -c 'pkill -x waybar 2>/dev/null; exec waybar'
 exec_always sh -c 'pkill -x mako 2>/dev/null; exec mako'
 exec_always sh -c 'pkill -x fcitx5 2>/dev/null; exec fcitx5'
-exec_always sh -c 'pkill -x xremap 2>/dev/null; exec xremap ~/.config/xremap/config.yml'
-exec_always sh -c 'pkill -x kdeconnect-indicator 2>/dev/null; exec kdeconnect-indicator'
 
 # Application shortcuts
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 
 bindsym $mod+Ctrl+l exec swaylock
-bindsym $mod+Shift+x exec wlogout
+bindsym $mod+Shift+x exec ~/.local/bin/powermenu
 bindsym $mod+Shift+q kill
 
 # Session
