@@ -29,4 +29,15 @@ sudo pacman -S tesseract-data-jpn tesseract-data-spa
 brightnessctl
 
 sudo pacman -Fy pdftoppm
-sudo pacman -S poppler
+for ((i=1; i <= 8; i++)); do
+	mv c0$i.en.pdf ./done/
+doneudo pacman -S poppler
+
+sudo paru -Sayu openmyocr
+sudo pacman -S recoll
+	recollindex　めちゃくちゃ時間かかる
+	GUIアプリで統合検索できる。マジでどこのファイルに書いてあったかわからんとき
+sudo pacman -S pdfgrep
+	pdfgrep -Hnr putchar 行番号付き・再帰で検索
+sudo pacman -S ripgrep
+	rg putchar　デフォルトで再帰検索（テクストのみ。ソースコードとmd）
