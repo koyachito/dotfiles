@@ -40,10 +40,11 @@ exec_always sh -c 'pkill -x fcitx5 2>/dev/null; exec fcitx5'
 # Application shortcuts
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
+bindsym $mod+space exec firefox
 
 bindsym $mod+Ctrl+l exec swaylock
-bindsym $mod+Shift+x exec ~/.local/bin/powermenu
-bindsym $mod+Shift+q kill
+bindsym $mod+x exec ~/.local/bin/powermenu
+bindsym $mod+q kill
 
 # Session
 bindsym $mod+Shift+c reload
@@ -86,7 +87,7 @@ bindsym $mod+e layout toggle split
 # Fullscreen / Floating
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # Scratchpad

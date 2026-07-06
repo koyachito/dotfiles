@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo "==> Updating pacman..."
+sudo pacman -Syu
+
+echo
+echo "==> Updating Cargo packages..."
+cargo install-update -a
+
+echo
+echo "==> Updating pipx packages..."
+pipx upgrade-all
+
+echo
+echo "Done!"

@@ -1,3 +1,13 @@
+ln -s ~/dotfiles/updall ~/.local/bin
+
+| 管理方法       | パッケージ                                                          |
+| ---------- | -------------------------------------------------------------- |
+| **pacman** | zellij, node, npm, typescript, yarn, node-gyp, semver, nopt, grunt-cli |
+| **cargo**  | xremap, cargo-install-update                           |
+| **pipx**   | norminette                                                     |
+
+
+
 Discord
 Timeshift
 VLC
@@ -33,7 +43,6 @@ for ((i=1; i <= 8; i++)); do
 	mv c0$i.en.pdf ./done/
 doneudo pacman -S poppler
 
-sudo paru -Sayu openmyocr
 sudo pacman -S recoll
 	recollindex　めちゃくちゃ時間かかる
 	GUIアプリで統合検索できる。マジでどこのファイルに書いてあったかわからんとき
@@ -45,3 +54,11 @@ sudo pacman -S ripgrep
 
 sudo pacman -S fd
 	zathura "$(fd '\.pdf$' | fzf)"とかで便利。findの便利版
+
+cargo install cargo-update
+
+sudo pacman -S typescript
+	npmで入れないで、pacman管理に移行
+
+sudo pacman -S zellij
+	cargoからpacmanに移行
