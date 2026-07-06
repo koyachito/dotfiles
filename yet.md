@@ -37,7 +37,11 @@ sudo paru -Sayu openmyocr
 sudo pacman -S recoll
 	recollindex　めちゃくちゃ時間かかる
 	GUIアプリで統合検索できる。マジでどこのファイルに書いてあったかわからんとき
+	recollq putchar　CLIでも使える
 sudo pacman -S pdfgrep
 	pdfgrep -Hnr putchar 行番号付き・再帰で検索
 sudo pacman -S ripgrep
 	rg putchar　デフォルトで再帰検索（テクストのみ。ソースコードとmd）
+
+sudo pacman -S fd
+	zathura "$(fd '\.pdf$' | fzf)"とかで便利。findの便利版
