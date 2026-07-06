@@ -27,3 +27,6 @@ sudo pacman -S tesseract-data-jpn tesseract-data-spa
 ./zathurarcにいろいろ追加
 
 brightnessctl
+
+sudo pacman -Fy pdftoppm
+sudo pacman -S poppler
