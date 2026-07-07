@@ -41,6 +41,7 @@ exec_always sh -c 'pkill -x fcitx5 2>/dev/null; exec fcitx5'
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym $mod+space exec firefox
+bindsym $mod+y exec $term -e yazi
 
 bindsym $mod+Ctrl+l exec swaylock
 bindsym $mod+x exec ~/.local/bin/powermenu

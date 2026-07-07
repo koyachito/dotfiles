@@ -1,0 +1,8 @@
+mkdir -p ~/.local/bin
+
+cat > ~/.local/bin/onlyoffice << 'EOF'
+#!/bin/sh
+exec flatpak run org.onlyoffice.desktopeditors "$@"
+EOF
+
+chmod +x ~/.local/bin/onlyoffice

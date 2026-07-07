@@ -6,7 +6,7 @@ ln -s ~/dotfiles/updall ~/.local/bin
 | **cargo**  | xremap, cargo-install-update                           |
 | **pipx**   | norminette                                                     |
 
-
+sudo pacman -S pacman-contrib
 
 Discord
 Timeshift
@@ -62,3 +62,12 @@ sudo pacman -S typescript
 
 sudo pacman -S zellij
 	cargoからpacmanに移行
+
+以下、正直クラウドがあるから必要はない
+sudo pacman -S flatpak
+sudo flatpak remote-add --if-not-exists flathub \
+https://dl.flathub.org/repo/flathub.flatpakrepo
+
+flatpak install flathub org.onlyoffice.desktopeditors
+flatpak run org.onlyoffice.desktopeditors
+
