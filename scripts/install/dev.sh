@@ -13,4 +13,5 @@ sudo pacman --needed -Sy \
     tree \
     jq \
     shellcheck \
-    shfmt
+    shfmt \
+    cargo

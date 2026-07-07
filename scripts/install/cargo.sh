@@ -8,3 +8,4 @@ cargo install zellij
 
 cargo install yazi-fm \
     --locked
+cargo install xremap

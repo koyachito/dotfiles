@@ -7,10 +7,10 @@ sudo pacman --needed -Sy \
     sway \
     swaylock \
     swayidle \
+	swaybg \
     waybar \
     mako \
     fuzzel \
-    wlogout \
     brightnessctl \
     grim \
     slurp \
@@ -19,7 +19,13 @@ sudo pacman --needed -Sy \
     fcitx5 \
     fcitx5-mozc \
     fcitx5-configtool \
-    libnotify
+    libnotify \
+    xdg-desktop-portal-wlr \
+    xdg-desktop-portal \
+    pipewire \
+    pipewire-pulse \
+    wireplumber
+
 
 mkdir -p \
     ~/.config \
@@ -32,7 +38,6 @@ for dir in \
     kitty \
     mako \
     fuzzel \
-    wlogout \
     nvim \
     yazi
 do
