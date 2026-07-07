@@ -13,4 +13,7 @@
 /etc/udev/rules.d/99-uinput.rules
 -> sudo usermod -aG input koyachito
 
+## ~/.bashrc
 
+
+## ~/.profile
