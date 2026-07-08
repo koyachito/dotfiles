@@ -1,0 +1,34 @@
+# install-all.sh 内の全パッケージ名が Arch 公式リポジトリに実在するか検証する
+# ubuntu-latest ランナー上で Arch Linux コンテナを起動して実行する
+name: Verify packages
+
+on: [push, pull_request]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # -Sy: パッケージデータベースを最新に同期
+      # --noconfirm: 確認プロンプトを自動で承認
+      - name: Sync package database
+        run: pacman -Sy --noconfirm
+
+      # install-all.sh からパッケージ名を抽出し、
+      # pacman -Si（情報表示のみ・インストールしない）で実在確認する
+      - name: Verify all package names exist
+        run: |
+          pkgs=$(sed -n '/^sudo pacman -S --needed/,/^$/p' install-all.sh \
+                 | grep -oP '^\t\K[a-z0-9._+-]+' || true)
+          echo "Packages to verify:"
+          echo "$pkgs"
+          fail=0
+          for p in $pkgs; do
+            if ! pacman -Si "$p" > /dev/null 2>&1; then
+              echo "NOT FOUND: $p"
+              fail=1
+            fi
+          done
+          exit $fail
