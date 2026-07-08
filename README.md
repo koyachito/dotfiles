@@ -1,294 +1,166 @@
 # dotfiles
 
-Personal Linux development environment for **Ubuntu 24.04 + Sway**.
+Arch Linux + Sway をベースに構築した、再現性と保守性を重視した開発環境です。
 
-## Features
+このリポジトリでは、設定ファイルだけでなく、環境構築スクリプトやシステム設定も Git で管理しています。
 
-* One-command environment setup
-* Sway (Wayland compositor)
+目標は「OSを再インストールしても短時間で同じ環境を復元できること」と、「自分が理解・管理できる範囲で Linux を使うこと」です。
+
+設計思想については **design.md** にまとめています。
+
+---
+
+# 特徴
+
+* Arch Linux + Sway による軽量なデスクトップ環境
+* Gitで管理された再現可能な開発環境
+* キーボード中心のワークフロー
+* CLI / TUI を優先したソフトウェア構成
+* モジュール化された設定ファイル
+* シンボリックリンクによる設定管理
+* systemd user service によるユーザーサービス管理
+* パッケージ管理を pacman に統一し、AUR 依存を最小限に抑える構成
+
+---
+
+# 含まれる主なソフトウェア
+
+## Desktop
+
+* Sway
 * Waybar
 * Kitty
-* Neovim (GitHub release)
-* JetBrainsMono Nerd Font (installed automatically)
 * Fuzzel
 * Mako
-* Wlogout
-* Swaylock + Swayidle
-* Yazi
-* Zellij
-* Battery warning (systemd user timer)
-* Optional development, applications, and 42 Tokyo setup
 
----
+## Development
 
-## Requirements
-
-* Ubuntu 24.04
-* Git
-* sudo
-
----
-
-## Installation
-
-Clone the repository.
-
-```bash
-git clone https://github.com/koyachito/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-chmod +x install.sh
-```
-
-### Base desktop
-
-Installs the default desktop environment.
-
-```bash
-./install.sh
-```
-
-Installs:
-
-* Base packages
-* JetBrainsMono Nerd Font
-* Sway desktop environment
 * Neovim
-* Dotfiles configuration
+* Git
+* Lazygit
+* Rust
+* Node.js
+* TypeScript
+* Clang
+* CMake
 
----
+## CLI / TUI
 
-### Development environment
+* bat
+* btop
+* eza
+* fd
+* fzf
+* jq
+* ripgrep
+* tree
+* yazi
+* zoxide
 
-```bash
-./install.sh --dev
-```
+## Documents
 
-Additionally installs:
+* Pandoc
+* Zathura
+* pdfgrep
+* Tesseract (日本語OCR)
 
-* Rust (rustup)
-* Development tools
-* Cargo packages
-* Global npm packages
+## Utilities
 
----
-
-### Full environment
-
-```bash
-./install.sh --full
-```
-
-Additionally installs:
-
-* Firefox (Mozilla official repository)
-* Spotify (Spotify official repository)
-* Visual Studio Code (Microsoft official repository)
-* Discord
-
----
-
-### 42 Tokyo
-
-```bash
-./install.sh --42
-```
-
-Additionally installs:
-
-* Norminette
-
-The 42 Header plugin is managed through Lazy.nvim.
-
-Add the plugin to your Neovim configuration, then run:
-
-```vim
-:Lazy sync
-```
-
----
-
-### Extras
-
-Machine-specific utilities.
-
-```bash
-./install.sh --extras
-```
-
-Installs:
-
-* Drawing
+* Bitwarden
+* Thunderbird
+* KDE Connect
 * xremap
+* brightnessctl
 
 ---
 
-## After Installation
-
-Reload your shell.
-
-```bash
-source ~/.profile
-```
-
-Restart Sway (or log out and back in).
-
-Open Neovim and install plugins.
-
-```vim
-:Lazy sync
-```
-
----
-
-## Repository Layout
+# リポジトリ構成
 
 ```text
 .
-├── config
-│   ├── fuzzel
-│   ├── kitty
-│   ├── mako
-│   ├── nvim
-│   ├── sway
-│   ├── systemd
-│   ├── waybar
-│   ├── wlogout
-│   └── yazi
-├── scripts
-│   ├── battery-warning
-│   ├── kde-send
-│   └── install
-│       ├── base.sh
-│       ├── fonts.sh
-│       ├── desktop.sh
-│       ├── neovim.sh
-│       ├── rust.sh
-│       ├── dev.sh
-│       ├── cargo.sh
-│       ├── npm.sh
-│       ├── apps.sh
-│       ├── extras.sh
-│       └── 42.sh
-├── install.sh
+├── config/            # 各種設定ファイル
+├── scripts/           # 補助スクリプト
+├── othersettings/     # system設定・設定例
+├── install-all.sh     # 環境構築スクリプト
+├── extra.sh           # 任意アプリの追加インストール
+├── design.md          # 設計思想
+├── snapper.md         # Snapper導入手順
 └── README.md
 ```
 
 ---
 
-## Troubleshooting
+# インストール
 
-### Waybar icons appear as squares
-
-This configuration uses **JetBrainsMono Nerd Font**.
-
-Refresh the font cache:
+リポジトリを取得します。
 
 ```bash
-fc-cache -fv
+git clone https://github.com/koyachito/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 ```
 
-Then restart Sway.
-
----
-
-### Japanese input does not work
-
-This configuration uses:
-
-* fcitx5
-* fcitx5-mozc
-
-If Japanese input is unavailable:
-
-1. Start `fcitx5`.
-2. Open `fcitx5-configtool`.
-3. Add **Mozc** as an input method.
-4. Restart your desktop session.
-
----
-
-### Neovim clipboard does not work
-
-Clipboard support requires:
+基本環境を構築します。
 
 ```bash
-wl-copy --version
+./install-all.sh
 ```
 
-If the command is missing:
+Steam・Discord・Spotify など任意のアプリケーションを追加する場合は、
 
 ```bash
-sudo apt install wl-clipboard
+./extra.sh
 ```
+
+を実行してください。
 
 ---
 
-### Neovim duplicates Enter or Backspace
+# インストール内容
 
-The official Linux binaries newer than **Neovim v0.11.4** caused duplicated Enter and Backspace input on my Ubuntu 24.04 + Sway environment, even with:
+`install-all.sh` は以下を自動で設定します。
 
-```bash
-nvim --clean
-```
-
-For that reason this repository installs **Neovim v0.11.4**.
-
----
-
-### 42 Header
-
-This repository does **not** install the 42 Header automatically.
-
-The plugin is managed through Lazy.nvim.
-
-Create:
-
-```text
-~/.config/nvim/lua/plugins/42header.lua
-```
-
-with the following contents:
-
-```lua
-return {
-    {
-        "Diogo-ss/42-header.nvim",
-        cmd = { "Stdheader" },
-        keys = {
-            { "<F1>", "<cmd>Stdheader<CR>", desc = "Insert 42 Header" },
-        },
-        opts = {
-            default_map = true,
-            auto_update = true,
-            user = "your_login",
-            mail = "your_email@student.42.fr",
-        },
-    },
-}
-```
-
-Then install the plugin:
-
-```vim
-:Lazy sync
-```
-
-Restart Neovim or run:
-
-```vim
-:Lazy reload 42-header.nvim
-```
-
-Press **F1** (or run `:Stdheader`) to insert or update the header.
+* pacman によるパッケージインストール
+* Cargo パッケージのインストール
+* dotfiles のシンボリックリンク作成
+* greetd の設定
+* systemd user service の有効化
+* xremap の設定
+* フォントキャッシュ更新
+* インストール確認
 
 ---
 
-### Idle behavior
+# 復旧
 
-Default configuration:
+このリポジトリを利用することで、新しい環境への移行やOS再インストール後の復旧は
 
-* Lock after 15 minutes
-* Suspend after 30 minutes
-* Lock before every suspend
-* Unlock required after resume
+1. Arch Linux をインストール
+2. このリポジトリを clone
+3. `install-all.sh` を実行
+4. 再起動
+
+という流れで行えます。
+
+---
+
+# 設計思想
+
+この環境は、
+
+* 軽量であること
+* 理解・管理できること
+* キーボード中心で操作できること
+* 環境を容易に再現できること
+
+を重視して設計しています。
+
+なぜ Arch Linux を選んだのか、Sway を採用した理由、ソフトウェア選定方針などについては **design.md** を参照してください。
+
+---
+
+# Snapper
+
+Btrfs スナップショットには Snapper を利用しています。
+
+初回導入手順は **snapper.md** にまとめています。
 
