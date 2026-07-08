@@ -1,0 +1,27 @@
+# push / PR のたびにシェルスクリプトを静的解析する
+# lint はスクリプトを実行しないため、Ubuntu ランナーで問題ない
+name: Lint
+
+on: [push, pull_request]
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      # git 管理下の全ファイルから shebang が bash/sh のものだけを対象にする
+      # （powermenu など拡張子なしのスクリプトも拾うため）
+      - name: Run shellcheck
+        run: |
+          fail=0
+          git ls-files | while read -r f; do
+            if head -n1 "$f" 2>/dev/null | grep -q '^#!.*sh'; then
+              echo "Checking: $f"
+              shellcheck "$f" || fail=1
+            fi
+          done
+          exit $fail
