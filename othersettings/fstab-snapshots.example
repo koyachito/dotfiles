@@ -1,0 +1,3 @@
+# Replace <UUID> with the UUID of your Btrfs filesystem.
+
+UUID=<UUID> /.snapshots btrfs subvol=@snapshots,compress=zstd,noatime 0 0
