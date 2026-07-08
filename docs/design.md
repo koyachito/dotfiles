@@ -353,7 +353,7 @@ AURを利用する場合は、PKGBUILDを確認し、実行内容を把握した
 * GPU：Intel UHD Graphics 620
 * ストレージ：SATA SSD
 
-測定は、Spotify、Firefox（ChatGPT）、ターミナルを起動した通常利用状態で実施した。
+測定は、Firefox、ターミナルを起動した通常利用状態で実施した。
 
 ## 5.2. 比較結果
 
