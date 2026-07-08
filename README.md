@@ -1,5 +1,8 @@
 # dotfiles
 
+![Lint](https://github.com/koyachito/dotfiles/actions/workflows/lint.yml/badge.svg)
+![Verify packages](https://github.com/koyachito/dotfiles/actions/workflows/verify-packages.yml/badge.svg)
+
 ## Desktop
 
 ![Desktop](assets/desktop.png)
