@@ -118,6 +118,8 @@ ln -sfn "$SCRIPTS/powermenu" "$HOME/.local/bin/powermenu"
 ln -sfn "$SETTINGS/.profile" "$HOME/.profile"
 ln -sfn "$SETTINGS/.bashrc" "$HOME/.bashrc"
 
+mkdir -p Pictures/ScreenShots
+
 # --------------------------------------------------------------------
 # xremap
 # --------------------------------------------------------------------
