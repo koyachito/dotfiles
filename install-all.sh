@@ -29,6 +29,7 @@ sudo pacman -S --needed \
 	kdeconnect \
 	kitty \
 	lazygit \
+	less \
 	libnotify \
 	linux \
 	linux-firmware \
