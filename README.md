@@ -1,12 +1,24 @@
 # dotfiles
 
+## Desktop
+
+![Desktop](assets/desktop.png)
+
+## Fastfetch
+
+![Fastfetch](assets/fastfetch.png)
+
+## Resource Usage
+
+![btop](assets/btop.png)
+
 Arch Linux + Sway をベースに構築した、再現性と保守性を重視した開発環境です。
 
 このリポジトリでは、設定ファイルだけでなく、環境構築スクリプトやシステム設定も Git で管理しています。
 
 目標は「OSを再インストールしても短時間で同じ環境を復元できること」と、「自分が理解・管理できる範囲で Linux を使うこと」です。
 
-設計思想については **design.md** にまとめています。
+設計思想については [Design](docs/design.md) にまとめています。
 
 ---
 
@@ -162,5 +174,6 @@ Steam・Discord・Spotify など任意のアプリケーションを追加する
 
 Btrfs スナップショットには Snapper を利用しています。
 
-初回導入手順は **snapper.md** にまとめています。
+初回導入手順は [snapper.md](docs/snapper.md) にまとめています。
+
 
