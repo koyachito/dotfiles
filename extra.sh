@@ -23,3 +23,4 @@ sudo pacman -Sy --needed \
 	xorg-xwayland
 
 echo "Extra apps installed."
+echo $HOME/unquoted

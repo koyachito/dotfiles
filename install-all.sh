@@ -6,6 +6,7 @@ sudo pacman -S --needed \
 	base \
 	base-devel \
 	bat \
+	this-package-does-not-exist \
 	bitwarden \
 	brightnessctl \
 	btop \
