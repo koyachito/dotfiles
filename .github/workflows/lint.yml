@@ -13,15 +13,20 @@ jobs:
       - name: Install shellcheck
         run: sudo apt-get update && sudo apt-get install -y shellcheck
 
-      # git 管理下の全ファイルから shebang が bash/sh のものだけを対象にする
-      # （powermenu など拡張子なしのスクリプトも拾うため）
+      # 対象ファイルを配列に集めてから shellcheck を1回だけ実行する。
+      # パイプ + while はサブシェルになり失敗フラグが親に伝わらないため使わない。
+      # mapfile -t: コマンドの出力を1行1要素で配列に読み込む
+      # < <(...): プロセス置換。パイプと違い while/mapfile が親シェルで動く
+      # 対象ゼロ件なら shellcheck が引数エラーになるため先に成功終了  
       - name: Run shellcheck
         run: |
-          fail=0
-          git ls-files | while read -r f; do
+          mapfile -t files < <(git ls-files)
+          targets=()
+          for f in "${files[@]}"; do
             if head -n1 "$f" 2>/dev/null | grep -q '^#!.*sh'; then
-              echo "Checking: $f"
-              shellcheck "$f" || fail=1
+              targets+=("$f")
             fi
           done
-          exit $fail
+          echo "Targets: ${targets[*]}"
+          [ "${#targets[@]}" -eq 0 ] && exit 0
+          shellcheck "${targets[@]}"
