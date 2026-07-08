@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+# count-mouse - 指定時間内のマウス操作回数（クリック・移動）を計数する
+#
+# 定義:
+#   クリック: ボタン押下イベント（pressed のみ。released は数えない）
+#   移動:     連続した移動イベントの塊を1回とする。
+#             1秒以上の停止で区切る（「手がマウスに伸びた回数」の近似）
+#
+# 仕組み:
+#   libinput debug-events が流す入力イベントを awk で分類・計数する。
+#   Sway 自身も入力処理に libinput を使っており、同じイベント列を見ている。
+#
+# 使い方:
+#   sudo ./scripts/count-mouse [秒数]   # 省略時 600秒 = 10分
+#
+
+set -euo pipefail
+
+DURATION="${1:-600}"
+
+if [ "$(id -u)" -ne 0 ]; then
+	echo "Error: run with sudo (libinput debug-events requires root)" >&2
+	exit 1
+fi
+
+# 事前チェック: libinput debug-events が起動できるか1秒だけ試す。
+# timeout の終了コード 124 は「1秒間動き続けた = 正常」を意味する。
+# それ以外はエラーなので、隠さずそのまま表示して終了する。
+rc=0
+timeout 1 libinput debug-events > /dev/null || rc=$?
+if [ "$rc" -ne 124 ]; then
+	echo "Error: libinput debug-events failed to start (exit ${rc})." >&2
+	echo "Run 'sudo libinput debug-events' directly to see the error." >&2
+	exit 1
+fi
+
+echo "Counting mouse events for ${DURATION}s ... work as usual."
+
+# stdbuf -oL: 出力を行バッファに強制する。
+# パイプ接続時のデフォルト（ブロックバッファ）だと、timeout で
+# プロセスが kill された際にバッファ内のイベントが失われるため。
+timeout "$DURATION" stdbuf -oL libinput debug-events 2> /dev/null \
+	| awk -v dur="$DURATION" '
+	/POINTER_BUTTON/ && /pressed/ { clicks++ }
+	/POINTER_MOTION/ {
+		# 行内から +12.34s 形式のタイムスタンプを探して数値化する
+		for (i = 1; i <= NF; i++) {
+			if ($i ~ /^\+[0-9.]+s$/) {
+				t = substr($i, 2, length($i) - 2) + 0
+				break
+			}
+		}
+		# 前回の移動から1秒以上空いていれば新しい「移動1回」と数える
+		if (t - last > 1.0 || moves == 0) moves++
+		last = t
+	}
+	END {
+		printf "---\n"
+		printf "duration:    %ds\n", dur
+		printf "clicks:      %d\n", clicks
+		printf "moves:       %d  (bursts separated by >1s pause)\n", moves
+		printf "total:       %d\n", clicks + moves
+		printf "per 10 min:  %.0f\n", (clicks + moves) * 600 / dur
+	}' || true
+# 補足: timeout が libinput を止めると pipefail によりパイプ全体が
+# 非0になるが、awk の END 出力は完了しているため || true で正常終了扱いにする
