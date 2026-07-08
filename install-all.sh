@@ -31,6 +31,7 @@ sudo pacman -S --needed \
 	lazygit \
 	less \
 	libnotify \
+	libinput-tools \
 	linux \
 	linux-firmware \
 	mako \
