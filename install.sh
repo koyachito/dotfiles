@@ -153,7 +153,6 @@ sudo systemctl enable --now NetworkManager
 systemctl --user daemon-reload
 systemctl --user enable --now xremap
 systemctl --user enable --now kdeconnect-indicator
-systemctl --user enable --now wlsunset
 
 # --------------------------------------------------------------------
 # Font cache
