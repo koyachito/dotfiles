@@ -66,6 +66,7 @@ sudo pacman -S --needed \
 	waybar \
 	wget \
 	wl-clipboard \
+	wlsunset \
 	xdg-desktop-portal \
 	xdg-desktop-portal-wlr \
 	yazi \

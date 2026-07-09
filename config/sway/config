@@ -36,6 +36,7 @@ exec_always pkill -x swayidle; exec swayidle -w \
 exec_always sh -c 'pkill -x waybar 2>/dev/null; exec waybar'
 exec_always sh -c 'pkill -x mako 2>/dev/null; exec mako'
 exec_always sh -c 'pkill -x fcitx5 2>/dev/null; exec fcitx5'
+exec_always sh -c 'pkill -x wlsunset 2>/dev/null; exec wlsunset -T 6500 -t 2800 -S 22:00 -s 11:00'
 
 # Application shortcuts
 bindsym $mod+Return exec $term
