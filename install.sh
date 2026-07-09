@@ -41,6 +41,7 @@ sudo pacman -S --needed \
 	noto-fonts-cjk \
 	noto-fonts-emoji \
 	npm \
+	obsidian \
 	openssh \
 	pacman-contrib \
 	pdfgrep \
