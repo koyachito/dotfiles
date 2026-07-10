@@ -2,5 +2,6 @@
 vt = 1
 
 [default_session]
-command = "tuigreet --time --remember --cmd 'bash -lc \"exec dbus-run-session sway\"'"
+# command = "tuigreet --time --remember --cmd 'dbus-run-session sway'"
+command = "tuigreet --time --remember --cmd start-hyprland"
 user = "greeter"

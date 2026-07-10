@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 choice=$(
 printf " Lock\n󰒲 Suspend\n󰜉 Reboot\n Shutdown\n Logout" |
 fuzzel --dmenu --prompt="Power > "
@@ -7,11 +9,13 @@ fuzzel --dmenu --prompt="Power > "
 
 case "$choice" in
     " Lock")
-        swaylock -f
+        hyprlock
         ;;
     "󰒲 Suspend")
-        systemctl suspend
-        ;;
+		hyprlock &
+    	sleep 1
+    	systemctl suspend
+    	;;
     "󰜉 Reboot")
         systemctl reboot
         ;;
@@ -19,6 +23,6 @@ case "$choice" in
         systemctl poweroff
         ;;
     " Logout")
-        swaymsg exit
+        hyprctl dispatch exit
         ;;
 esac
