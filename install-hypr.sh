@@ -3,9 +3,6 @@
 set -euo pipefail
 
 DOTFILES="$HOME/dotfiles"
-CONFIG_DIR="$HOME/.config"
-DOTFILES_CONFIG="$DOTFILES/config"
-SETTINGS="$DOTFILES/othersettings"
 SCRIPTS="$DOTFILES/scripts"
 
 sudo pacman -S --needed \

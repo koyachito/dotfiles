@@ -76,7 +76,6 @@ DOTFILES="$HOME/dotfiles"
 CONFIG_DIR="$HOME/.config"
 DOTFILES_CONFIG="$DOTFILES/config"
 SETTINGS="$DOTFILES/othersettings"
-SCRIPTS="$DOTFILES/scripts"
 
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$CONFIG_DIR"
