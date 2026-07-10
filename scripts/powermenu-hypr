@@ -8,21 +8,21 @@ fuzzel --dmenu --prompt="Power > "
 )
 
 case "$choice" in
-    " Lock")
-        hyprlock
-        ;;
-    "󰒲 Suspend")
+	" Lock")
+		hyprlock
+		;;
+	"󰒲 Suspend")
 		hyprlock &
-    	sleep 1
-    	systemctl suspend
-    	;;
-    "󰜉 Reboot")
-        systemctl reboot
-        ;;
-    " Shutdown")
-        systemctl poweroff
-        ;;
-    " Logout")
-        hyprctl dispatch exit
-        ;;
+		sleep 1
+		systemctl suspend
+		;;
+	"󰜉 Reboot")
+		systemctl reboot
+		;;
+	" Shutdown")
+		systemctl poweroff
+		;;
+	" Logout")
+		hyprctl dispatch exit
+		;;
 esac
