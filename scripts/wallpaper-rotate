@@ -1,53 +1,69 @@
+```bash
 #!/usr/bin/env bash
 
 # hyprpaperの壁紙を次の1枚に切り替えるスクリプト。
 # systemd user timerから定期実行される想定。
 # Hyprlandセッション外で起動された場合は何もせず正常終了する。
+#
+# 現在位置はstateファイルで管理する。
+# Hyprpaper 0.8以降の wallpaper IPC を使用。
 
 set -euo pipefail
 
-# 対象の壁紙一覧（hyprpaper.confのpreloadと一致させること）
+# ローテーション対象の壁紙一覧
 WALLPAPERS=(
 	/usr/share/hypr/wall0.png
 	/usr/share/hypr/wall1.png
 	/usr/share/hypr/wall2.png
 )
 
+# 前回表示した壁紙のインデックス置き場。
+# XDG_RUNTIME_DIRはログアウトで消えるため、
+# セッションごとに初期状態から始まる。
+STATE_FILE="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/wallpaper-rotate.index"
+
 # --- Hyprlandインスタンスの検出 ---
-# systemdから起動されるとHYPRLAND_INSTANCE_SIGNATUREが渡らず
-# hyprctlが接続先を見つけられないため、ランタイムディレクトリから補完する。
+# systemdから起動されるとHYPRLAND_INSTANCE_SIGNATUREが渡らないため、
+# ランタイムディレクトリから補完する。
 if [[ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
 	hypr_dir="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/hypr"
-	# Hyprlandが動いていなければ静かに終了（インストール直後のTTY等）
+
+	# Hyprlandが動いていなければ終了
 	[[ -d "$hypr_dir" ]] || exit 0
-	# 最終更新が最も新しいインスタンスディレクトリ名がシグネチャ。
-	# ls の出力パースは SC2012 に反するため、bash の -nt（more recent than、
-	# mtime 比較）でループして最新を選ぶ。外部コマンド不要でパースの問題もない。
+
 	newest=""
 	for d in "$hypr_dir"/*/; do
-	# グロブが1件もマッチしないと "$hypr_dir/*/" が文字列のまま残るため実在確認で弾く
+		# グロブ未展開対策
 		[[ -e "$d" ]] || continue
 		[[ -z "$newest" || "$d" -nt "$newest" ]] && newest="$d"
 	done
+
 	[[ -n "$newest" ]] || exit 0
-	HYPRLAND_INSTANCE_SIGNATURE=$(basename "$newest")
+
 	export HYPRLAND_INSTANCE_SIGNATURE
+	HYPRLAND_INSTANCE_SIGNATURE=$(basename "$newest")
 fi
 
-# hyprpaperが未起動なら何もしない
-pgrep -x hyprpaper > /dev/null || exit 0
+# --- 前回のインデックスを読む ---
+# stateファイルが無い・壊れている場合は0とみなし、
+# 次は1枚目へ進む。
+last=0
+if [[ -f "$STATE_FILE" ]]; then
+	last=$(<"$STATE_FILE")
+	[[ "$last" =~ ^[0-9]+$ ]] || last=0
+fi
 
-# --- 現在の壁紙から次のインデックスを決める ---
-# listactive の出力例: "eDP-1 = /usr/share/hyprland/wall0.png"
-current=$(hyprctl hyprpaper listactive | head -n1 | awk -F' = ' '{print $2}')
+next=$(((last + 1) % ${#WALLPAPERS[@]}))
 
-next_index=0
-for i in "${!WALLPAPERS[@]}"; do
-	if [[ "${WALLPAPERS[$i]}" == "$current" ]]; then
-		next_index=$(( (i + 1) % ${#WALLPAPERS[@]} ))
-		break
-	fi
-done
+# --- 壁紙変更 ---
+# Hyprpaper 0.8以降は wallpaper IPC を使用する。
+# IPCが失敗した場合（Hyprpaper未起動など）はstateを更新しない。
+echo "Switching to: ${WALLPAPERS[$next]}"
 
-# --- 切り替え（preload済みなので即時反映） ---
-hyprctl hyprpaper wallpaper ", ${WALLPAPERS[$next_index]}"
+if hyprctl hyprpaper wallpaper ",${WALLPAPERS[$next]}"; then
+    echo "Success"
+    echo "$next" >"$STATE_FILE"
+else
+    echo "Failed"
+fi
+```
