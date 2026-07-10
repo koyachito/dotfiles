@@ -37,7 +37,4 @@ else
 	sudo systemctl enable --now greetd
 fi
 
-systemctl --user daemon-reload
-systemctl --user enable wallpaper-rotate.timer
-
 echo "Hyprland installation completed."
