@@ -29,7 +29,14 @@ do
 	command -v "$cmd"
 done
 
-sudo systemctl restart greetd
+# greetd が稼働中なら restart はセッションを巻き込むため行わない。
+# 新しい設定は次回の greetd 起動（再起動）時に反映される。
+if systemctl is-active --quiet greetd; then
+	echo "greetd is running: new config will take effect after reboot."
+else
+	sudo systemctl enable --now greetd
+fi
+
 systemctl --user daemon-reload
 systemctl --user enable wallpaper-rotate.timer
 
