@@ -10,13 +10,11 @@ sudo pacman -S --needed \
 	swaybg \
 	swayidle \
 	swaylock \
-	wlsunset \
 	xdg-desktop-portal-wlr
 
 DOTFILES="$HOME/dotfiles"
 
 ln -sfn "$DOTFILES/config/sway" "$HOME/.config/sway"
-ln -sfn "$DOTFILES/config/waybar-sway" "$HOME/.config/waybar"
 ln -sfn "$SCRIPTS/powermenu-sway" "$HOME/.local/bin/powermenu"
 
 sudo cp "$DOTFILES/othersettings/config-sway.toml" \
@@ -31,5 +29,7 @@ for cmd in \
 do
 	command -v "$cmd"
 done
+
+sudo systemctl restart greetd
 
 echo "Sway installation completed."

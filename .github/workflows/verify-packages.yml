@@ -1,4 +1,4 @@
-# install-all.sh 内の全パッケージ名が Arch 公式リポジトリに実在するか検証する
+# インストールスクリプト内の全パッケージ名が Arch 公式リポジトリに実在するか検証する
 # ubuntu-latest ランナー上で Arch Linux コンテナを起動して実行する
 name: Verify packages
 
@@ -16,12 +16,22 @@ jobs:
       - name: Sync package database
         run: pacman -Sy --noconfirm
 
-      # install-all.sh からパッケージ名を抽出し、
-      # pacman -Si（情報表示のみ・インストールしない）で実在確認する
+      # install-common.sh / install-hypr.sh / install-sway.sh から
+      # パッケージ名を抽出し、pacman -Si（情報表示のみ・インストールしない）で実在確認する。
+      # sed は複数ファイルを引数に取れるため、各ファイルの
+      # 「sudo pacman -S --needed」行から空行までのブロックをそれぞれ抽出する。
+      # grep の || true は「マッチ0件 = 終了コード1」を pipefail で即死させないための措置。
+      # その代わり直後の空チェックで拾う。抽出0件はスクリプトの改名・構造変更を
+      # 検出できていない状態なので、握りつぶさず CI を失敗させる。
       - name: Verify all package names exist
         run: |
-          pkgs=$(sed -n '/^sudo pacman -S --needed/,/^$/p' install-all.sh \
+          pkgs=$(sed -n '/^sudo pacman -S --needed/,/^$/p' \
+                   install-common.sh install-hypr.sh install-sway.sh \
                  | grep -oP '^\t\K[a-z0-9._+-]+' || true)
+          if [ -z "$pkgs" ]; then
+            echo "ERROR: No packages extracted. Check script names/structure."
+            exit 1
+          fi
           echo "Packages to verify:"
           echo "$pkgs"
           fail=0

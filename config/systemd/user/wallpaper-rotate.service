@@ -1,0 +1,6 @@
+[Unit]
+Description=Rotate hyprpaper wallpaper
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/wallpaper-rotate

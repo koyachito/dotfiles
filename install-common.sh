@@ -62,6 +62,7 @@ sudo pacman -S --needed \
 	waybar \
 	wget \
 	wl-clipboard \
+	wlsunset \
 	yazi \
 	zathura \
 	zathura-pdf-mupdf \
@@ -88,7 +89,8 @@ for dir in \
 	systemd \
 	xremap \
 	yazi \
-	zathura
+	zathura \
+	waybar
 do
 	ln -sfn "$DOTFILES_CONFIG/$dir" "$CONFIG_DIR/$dir"
 done
@@ -107,7 +109,7 @@ sudo modprobe uinput
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 
-sudo systemctl enable --now greetd
+sudo systemctl enable greetd
 sudo systemctl enable --now NetworkManager
 
 systemctl --user daemon-reload
