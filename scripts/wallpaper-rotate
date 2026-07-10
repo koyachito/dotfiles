@@ -20,9 +20,17 @@ if [[ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]]; then
 	hypr_dir="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/hypr"
 	# Hyprlandが動いていなければ静かに終了（インストール直後のTTY等）
 	[[ -d "$hypr_dir" ]] || exit 0
-	# 最新のインスタンスディレクトリ名がシグネチャ
-	HYPRLAND_INSTANCE_SIGNATURE=$(ls -t "$hypr_dir" | head -n1)
-	[[ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]] || exit 0
+	# 最終更新が最も新しいインスタンスディレクトリ名がシグネチャ。
+	# ls の出力パースは SC2012 に反するため、bash の -nt（more recent than、
+	# mtime 比較）でループして最新を選ぶ。外部コマンド不要でパースの問題もない。
+	newest=""
+	for d in "$hypr_dir"/*/; do
+	# グロブが1件もマッチしないと "$hypr_dir/*/" が文字列のまま残るため実在確認で弾く
+		[[ -e "$d" ]] || continue
+		[[ -z "$newest" || "$d" -nt "$newest" ]] && newest="$d"
+	done
+	[[ -n "$newest" ]] || exit 0
+	HYPRLAND_INSTANCE_SIGNATURE=$(basename "$newest")
 	export HYPRLAND_INSTANCE_SIGNATURE
 fi
 
