@@ -208,4 +208,8 @@ Btrfs スナップショットには Snapper を利用しています。
 
 初回導入手順は [snapper.md](docs/snapper.md) にまとめています。
 
+---
 
+# swap
+
+Swapの設定については [swap.md](docs/swap.md)にまとめています。
