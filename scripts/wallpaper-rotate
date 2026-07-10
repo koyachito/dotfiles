@@ -8,9 +8,9 @@ set -euo pipefail
 
 # 対象の壁紙一覧（hyprpaper.confのpreloadと一致させること）
 WALLPAPERS=(
-	/usr/share/hyprland/wall0.png
-	/usr/share/hyprland/wall1.png
-	/usr/share/hyprland/wall2.png
+	/usr/share/hypr/wall0.png
+	/usr/share/hypr/wall1.png
+	/usr/share/hypr/wall2.png
 )
 
 # --- Hyprlandインスタンスの検出 ---
