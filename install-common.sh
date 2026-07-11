@@ -58,6 +58,7 @@ sudo pacman -S --needed \
 	tldr \
 	tree \
 	typescript \
+	ufw \
 	unzip \
 	waybar \
 	wget \

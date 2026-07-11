@@ -18,7 +18,6 @@ fi
 sudo pacman -Sy --needed \
 	steam \
 	discord \
-	spotify-launcher \
 	vlc \
 	xorg-xwayland
 
