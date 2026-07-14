@@ -140,8 +140,6 @@ cd ~/dotfiles
 ./firewall.sh
 ```
 
-続けて、使用するウィンドウマネージャのスクリプトを実行します。greetd の設定と有効化は各スクリプトの最後で行われます。どちらか一方でも、両方でも構いません。
-
 ```bash
 # Hyprland を使う場合
 ./install-hypr.sh
@@ -149,8 +147,6 @@ cd ~/dotfiles
 # Sway を使う場合
 ./install-sway.sh
 ```
-
-両方インストールした場合、greetd が起動するデフォルトセッションは後に実行したスクリプトの WM になります。
 
 Steam・Discord・Spotify など任意のアプリケーションを追加する場合は、
 
@@ -184,7 +180,6 @@ Steam・Discord・Spotify など任意のアプリケーションを追加する
 
 * WM 本体と周辺ツールのインストール
 * WM 設定・Waybar・電源メニューのシンボリックリンク作成
-* greetd の設定と有効化
 * インストール確認
 
 ---

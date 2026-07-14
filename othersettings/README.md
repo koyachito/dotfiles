@@ -1,7 +1,3 @@
-## tuigreet
-/etc/greetd/config.toml
--> sudo systemctl enable greetd
-
 ## systemd-boot
 /boot/loader/loader.conf
 
