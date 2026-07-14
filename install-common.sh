@@ -23,6 +23,7 @@ sudo pacman -S --needed \
 	fzf \
 	git \
 	grim \
+	intel-ucode \
 	jq \
 	kdeconnect \
 	kitty \
@@ -115,6 +116,9 @@ sudo systemctl enable --now NetworkManager
 systemctl --user daemon-reload
 systemctl --user enable --now xremap
 systemctl --user enable --now kdeconnect-indicator
+
+bootctl update
+sudo mkinitcpio -P
 
 fc-cache -fv
 
