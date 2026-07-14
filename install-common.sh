@@ -22,8 +22,6 @@ sudo pacman -S --needed \
 	fuzzel \
 	fzf \
 	git \
-	greetd \
-	greetd-tuigreet \
 	grim \
 	jq \
 	kdeconnect \
@@ -53,6 +51,7 @@ sudo pacman -S --needed \
 	shellcheck \
 	shfmt \
 	slurp \
+	sddm \
 	tesseract-data-jpn \
 	thunderbird \
 	tldr \
@@ -110,7 +109,7 @@ sudo modprobe uinput
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 
-sudo systemctl enable greetd
+sudo systemctl enable sddm
 sudo systemctl enable --now NetworkManager
 
 systemctl --user daemon-reload
