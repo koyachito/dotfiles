@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Beeper
+Exec=/home/koyachito/Applications/Beeper.AppImage
+Icon=beeper
+Terminal=false
+Categories=Network;InstantMessaging;
+StartupNotify=true

@@ -7,9 +7,6 @@ modmap:
   - name: Katakana -> Super
     remap:
       KEY_HENKAN: KEY_LEFTMETA
-  - name: Right Alt -> Hyper 
+  - name: Right Alt
     remap:
-      RightAlt: F24 
-  - name: Right Ctrl -> F23
-    remap:
-      RightCtrl: F23
+      RightAlt: []

@@ -34,6 +34,8 @@ sudo pacman -S --needed \
 	linux \
 	linux-firmware \
 	mako \
+	man \
+	man-pages \
 	neovim \
 	networkmanager \
 	nodejs \
