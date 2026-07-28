@@ -34,7 +34,7 @@ sudo pacman -S --needed \
 	linux \
 	linux-firmware \
 	mako \
-	man \
+	man-db \
 	man-pages \
 	neovim \
 	networkmanager \
